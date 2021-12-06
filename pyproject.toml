@@ -1,10 +1,10 @@
 [tool.black]
 line-length = 88
-target-version = ['py36', 'py37', 'py38']
+target-version = ['py39']
 include = '\.pyi?$'
 
 [tool.poetry]
-name = "P9"
+name = "LITReview"
 version = "0.1.0"
 description = "Application web permettant à une communauté d'utilisateurs de consulter ou de solliciter une critique de livres à la demande."
 authors = ["Kévin Audebrand <kevin.audebrand@gmail.com>"]
