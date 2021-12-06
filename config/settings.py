@@ -15,7 +15,8 @@ from pathlib import Path
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+APPS_DIR = BASE_DIR / "litreview"
 
 # environ
 env = environ.Env(DEBUG=(bool, False))
@@ -41,13 +42,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "litreview.apps.LitreviewConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.forms",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "litreview.users.apps.UsersConfig",
+    "litreview.tickets.apps.TicketsConfig",
+    "litreview.reviews.apps.ReviewsConfig",
 ]
 
 MIDDLEWARE = [
@@ -65,13 +73,17 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
+        "DIRS": [str(APPS_DIR / "templates")],
         "OPTIONS": {
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ],
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.static",
                 "django.contrib.messages.context_processors.messages",
             ],
         },
@@ -90,6 +102,15 @@ DATABASES = {
         default=f"sqlite:///{str(BASE_DIR / 'db.sqlite3')}",
     )
 }
+
+# AUTHENTIFICATION
+AUTHENTIFICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthentificationBackend",
+]
+AUTH_USER_MODEL = "users.User"
+LOGIN_REDIRECT_URL = "users:redirect"
+LOGIN_URL = "account_login"
 
 
 # Password validation
@@ -124,11 +145,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [str(APPS_DIR / "static")]
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -140,3 +167,11 @@ EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND",
     default="django.core.mail.backends.console.EmailBackend",
 )
+
+# django-allauth
+ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+ACCOUNT_AUTHENTIFICATION_METHOD = "username"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_ADAPTER = "litreview.users.adapters.AccountAdapter"
+SOCIALACCOUNT_ADAPTER = "litreview.users.adapters.SocialAccountAdapter"
