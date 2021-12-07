@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Utilisateur : {{object.username}}{% endblock title %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>{{object.username}}</h2>
+            {% if object.name %}
+            <p>{{object.name}}</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

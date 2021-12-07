@@ -1,7 +1,7 @@
 from django.urls import path
+from litreview.users.views import user_index_view
 
-from . import views
-
+app_name = "users"
 urlpatterns = [
-    path(route="", view=views.UsersView.index, name="users"),
+    path(route="<str:username>/", view=user_index_view, name="index"),
 ]

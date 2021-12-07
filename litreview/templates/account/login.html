@@ -1,0 +1,25 @@
+{% extends 'account/base.html' %}
+{% load account %}
+{% load crispy_forms_tags %}
+{% block head_title%}Connexion{% endblock head_title %}
+
+{% block inner %}
+
+<h1>Connexion</h1>
+
+<p>
+    Un compte est obligatoire pour acceder à l'application. Vous pouvez en
+    <a href="{{signup_url}}">créer un ici</a>.
+</p>
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{form|crispy}}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}" />
+    {% endif %}
+    <a class="btn btn-secondary" href="{% url 'account_reset_password' %}">Mot de passe oublié ?</a>
+    <button class="btn btn-primary" type="submit">Connexion</button>
+</form>
+
+{% endblock inner %}
