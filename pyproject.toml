@@ -11,10 +11,10 @@ authors = ["Kévin Audebrand <kevin.audebrand@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-Django = "^3.2.9"
+Django = "^3.2.10"
 django-environ = "^0.8.1"
 Pillow = "^8.4.0"
-django-allauth = "^0.46.0"
+django-allauth = "^0.47.0"
 crispy-bootstrap5 = "^0.6"
 
 [tool.poetry.dev-dependencies]

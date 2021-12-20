@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Utilisateur : {{object.username}}{% endblock title %}
+
+{% block content %}
+<div class="container w-50 p-4">
+    {% if object.username %}
+        <h1>Bonjour, {{object.username}} !</h1>
+    {% endif %}
+    <div class="row justify-content-evenly p-4">
+        <div class="col-4">
+            <a class="btn btn-primary" href="">Demander une critique</a>
+        </div>
+        <div class="col-4">
+            <a class="btn btn-primary" href="">Créer une critique</a>
+        </div>
+    </div>
+    <p class="p-4">Voici votre flux d'activités :</p>
+
+        {% for post in posts %}
+            {% if post.content_type == 'TICKET' %}
+                {% include 'users/snippets/ticket_snippet.html' %}
+            {% elif post.content_type == 'REVIEW' %}
+                {% include 'users/snippets/review_snippet.html' %}
+            {% endif %}
+        {% endfor %}
+
+</div>
+{% endblock content %}

@@ -17,19 +17,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import TemplateView
+from litreview.pages.views import redirect_root
 
 urlpatterns = [
-    path(
-        "",
-        TemplateView.as_view(template_name="pages/home.html"),
-        name="home",
-    ),
+    path("", redirect_root, name="home"),
     path("admin/", admin.site.urls),
+    path("users/", include("litreview.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("tickets/", include("litreview.tickets.urls", namespace="tickets")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-"""path(
-        "",
-        include("litreview.users.urls", namespace="users"),
-    ),"""

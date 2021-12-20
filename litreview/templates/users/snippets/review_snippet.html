@@ -1,0 +1,26 @@
+<div class="card text-white bg-secondary text-center m-2">
+    <div class="card-header">
+        Vous avez publié une critique
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{post.headline}} - {{post.rating}}</h5>
+        <p class="card-text">{{post.body}}</p>
+        <p class="card-text">
+            <div class="card text-black text-center">
+                <div class="card-header">
+                    Critique demandée par {{post.ticket.user}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{post.ticket.title}}</h5>
+                    <p class="card-text">{{post.ticket.description}}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    {{post.ticket.time_created}}
+                </div>
+            </div>
+        </p>
+    </div>
+    <div class="card-footer text-white-50">
+        {{post.time_created}}
+    </div>
+</div>

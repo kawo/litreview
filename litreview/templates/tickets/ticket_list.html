@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<h1>Liste des tickets</h1>
+<ul>
+{% for ticket in ticket_list %}
+    <li>{{ticket.title}}</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock content %}

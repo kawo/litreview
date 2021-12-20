@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 
-# Create your views here.
+from .models import Ticket
+
+
+class TicketListView(LoginRequiredMixin, ListView):
+    model = Ticket

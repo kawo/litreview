@@ -1,25 +1,31 @@
-{% extends 'account/base.html' %}
-{% load account %}
-{% load crispy_forms_tags %}
-{% block head_title%}Connexion{% endblock head_title %}
+{% extends "account/base.html" %}
+{% load account crispy_forms_tags %}
 
-{% block inner %}
+{% block head_title %}Connexion{% endblock %}
 
-<h1>Connexion</h1>
+{% block content %}
+<div class="container w-50 p-4">
+  <div class="row justify-content-evenly">
+    <div class="col-4">
+      <h1>Création de compte</h1>
 
-<p>
-    Un compte est obligatoire pour acceder à l'application. Vous pouvez en
-    <a href="{{signup_url}}">créer un ici</a>.
-</p>
+      <p>Vous devez posséder un compte pour accéder à l'application.</p>
+      <p>Si vous n'en n'avez pas, utilisez le bouton ci-dessous :</p>
+      <a class="btn btn-primary" href="{{ signup_url }}">Créer un compte</a>
+    </div>
+    <div class="col-4">
+      <h1>Connexion</h1>
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {{form|crispy}}
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}" />
-    {% endif %}
-    <a class="btn btn-secondary" href="{% url 'account_reset_password' %}">Mot de passe oublié ?</a>
-    <button class="btn btn-primary" type="submit">Connexion</button>
-</form>
-
-{% endblock inner %}
+      <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <a class="btn btn-secondary" href="{% url 'account_reset_password' %}">Mot de passe oublié ?</a>
+        <button class="btn btn-primary" type="submit">Connexion</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
