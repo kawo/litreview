@@ -11,7 +11,7 @@ from litreview.tickets.models import Ticket
 User = get_user_model()
 
 
-class UsersDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     slug_field = "username"
     slug_url_kwarg = "username"
@@ -36,7 +36,7 @@ class UsersDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-user_detail_view = UsersDetailView.as_view()
+user_detail_view = UserDetailView.as_view()
 
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):
@@ -50,3 +50,12 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 user_redirect_view = UserRedirectView.as_view()
+
+
+class UserFollowView(LoginRequiredMixin, DetailView):
+    model = User
+    slug_field = "username"
+    slug_url_kwarg = "username"
+
+
+user_follow_view = UserFollowView.as_view()

@@ -26,14 +26,10 @@
                             <a class="nav-link" href="#">Posts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Abonnements</a>
+                            <a class="nav-link" href="{% url 'users:follow' object.username %}">Abonnements</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarNavDropdownMenuLink" role="button" data-bs-toggle="dropdown">Mon compte</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'account_email' %}">Détails</a></li>
-                                <li><a class="dropdown-item" href="{% url 'account_logout' %}">Me déconnecter</a></li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_logout' %}">Me déconnecter</a>
                         </li>
                     </ul>
                 </div>
