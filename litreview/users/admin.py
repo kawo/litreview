@@ -12,6 +12,6 @@ class UserAdmin(auth_admin.UserAdmin):
     add_form = UserCreationForm
     fieldsets = (
         ("Utilisateur", {"fields": ("name",)}),
-    ) + auth_admin.UserAdmin.fieldsets
+    ) + auth_admin.UserAdmin.fieldsets  # type: ignore
     list_display = ["username", "name", "is_superuser"]
     search_fields = ["name"]
