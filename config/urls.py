@@ -22,7 +22,7 @@ from litreview.pages.views import redirect_root
 urlpatterns = [
     path("", redirect_root, name="home"),
     path("admin/", admin.site.urls),
-    path("users/", include("litreview.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("users/", include("litreview.users.urls", namespace="users")),
     path("tickets/", include("litreview.tickets.urls", namespace="tickets")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
